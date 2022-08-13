@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>首页</h1>
+<form th:action="@{/testRequestBody}" method="post">
+    <label>
+        <input type="text" name="username">
+    </label> <br>
+    <label>
+        <input type="password" name="password">
+    </label> <br>
+    <input type="submit" value="测试@RequestBody">
+</form>
+
+<form th:action="@{/testRequestEntity}" method="post">
+    <label>
+        <input type="text" name="username">
+    </label> <br>
+    <label>
+        <input type="password" name="password">
+    </label> <br>
+    <input type="submit" value="测试RequestEntity">
+</form>
+
+<a th:href="@{/testResponseBody}">测试@ResponseBody</a> <br>
+
+<a th:href="@{/testResponseUser}">测试@ResponseBody响应对象</a>
+
+<div id="app">
+    <a @click.prevent="testAxios" th:href="@{/testAxios}">测试处理Ajax请求</a>
+</div>
+<script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/axios.min.js}"></script>
+<script type="text/javascript">
+    const vm = new Vue({
+        el:"#app",
+        methods:{
+            testAxios:function (event) {
+                axios({
+                    method:"post",
+                    url:event.target.href,
+                    params:{
+                        username:"admin",
+                        password:"123456"
+                    }
+                }).then(function (response) {
+                    alert(response.data)
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>
